@@ -9,18 +9,21 @@ namespace DFC.Compui.Telemetry.TelemetryInitializers
     public class ApplicationTelemetryInitializer : ITelemetryInitializer
     {
         private readonly ILogger<ApplicationTelemetryInitializer> _logger;
-        private readonly string? applicationName;
+        private readonly IConfiguration _configuration;
         private string? applicationInstanceId;
 
         public ApplicationTelemetryInitializer(ILogger<ApplicationTelemetryInitializer> logger, IConfiguration configuration)
         {
             this._logger = logger;
-            this.applicationName = configuration != null ? configuration["Configuration:ApplicationName"] ?? throw new ArgumentException(nameof(applicationName)) : throw new ArgumentNullException(nameof(configuration));
+            this._configuration = configuration;
+
             Setup();
         }
 
         public void Setup()
         {
+            var applicationName = !string.IsNullOrEmpty(_configuration["Configuration:ApplicationName"]) ? _configuration["Configuration:ApplicationName"] : throw new ArgumentException($"Configuration:ApplicationName Key not found in configuration");
+
             applicationInstanceId = Guid.NewGuid().ToString();
 
             //Log to Console for App Service / K8S Tracing
@@ -37,6 +40,8 @@ namespace DFC.Compui.Telemetry.TelemetryInitializers
             {
                 throw new ArgumentNullException(nameof(telemetry));
             }
+
+            var applicationName = _configuration["Configuration:ApplicationName"] ?? throw new ArgumentException($"Configuration:ApplicationName Key not found in configuration");
 
             //RoleName is used to distinguish instances in the AI Application Map
             //Pods in K8S will have a null value, so set to the instance ID
