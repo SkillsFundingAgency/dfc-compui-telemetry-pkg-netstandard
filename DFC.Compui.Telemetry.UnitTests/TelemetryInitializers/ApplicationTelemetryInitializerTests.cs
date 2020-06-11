@@ -1,5 +1,6 @@
 ﻿using DFC.Compui.Telemetry.TelemetryInitializers;
 using FakeItEasy;
+using Microsoft.ApplicationInsights.Channel;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -30,6 +31,26 @@ namespace DFC.Compui.Telemetry.UnitTests.TelemetryInitializers
 
             //Assert
             A.CallTo(() => configuration["Configuration:ApplicationName"]).MustHaveHappened();
+        }
+
+        [Fact]
+        public void ApplicationTelemetryInitializer_WhenInitializeCalled_SetsGlobalTelemetryValues()
+        {
+            //Arrange
+            var configuration = A.Fake<IConfiguration>();
+            A.CallTo(() => configuration["Configuration:ApplicationName"]).Returns("TestAppA");
+
+            var telemetry = A.Fake<ITelemetry>();
+
+            //Act
+            var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration);
+            initializer.Initialize(telemetry);
+
+            //Assert
+            A.CallTo(() => configuration["Configuration:ApplicationName"]).MustHaveHappened();
+            Assert.True(telemetry.Context.GlobalProperties.ContainsKey("ApplicationName"));
+            Assert.True(telemetry.Context.GlobalProperties.ContainsKey("ApplicationInstanceId"));
+            Assert.NotNull(telemetry.Context.Cloud.RoleName);
         }
     }
 }
