@@ -1,9 +1,7 @@
-﻿using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
-using DFC.Compui.Telemetry.HostedService;
+﻿using DFC.Compui.Telemetry.HostedService;
 using FakeItEasy;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -12,7 +10,7 @@ namespace DFC.Compui.Telemetry.UnitTests.HostedService
     public class HostedServiceTests
     {
         [Fact]
-        public async Task DoSomething()
+        public async Task HostedServiceTelemetryWrapper_WhenExecuteCalled_ExecutesEncapsulatedMethod()
         {
             //Arrange
             var configuration = A.Fake<IConfiguration>();
