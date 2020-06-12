@@ -5,6 +5,9 @@
     <ProjectGuid>{C3E6B342-5CC0-4417-BFF9-CB88A007E39C}</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
+    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="FakeItEasy" Version="6.1.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.5" />
