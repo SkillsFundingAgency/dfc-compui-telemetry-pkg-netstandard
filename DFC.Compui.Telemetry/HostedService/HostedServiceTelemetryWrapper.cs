@@ -44,7 +44,6 @@ namespace DFC.Compui.Telemetry.HostedService
                     telemetryClient.StartOperation<DependencyTelemetry>($"Hosted Service Operation: {hostedServiceName} - {serviceToExecute.Method.Name}");
                     telemetryClient.TrackTrace($"Tracking {hostedServiceName} - {serviceToExecute.Method.Name}");
 
-
                     await Task.Run(() => serviceToExecute.Invoke()).ConfigureAwait(false);
                 }
             }
