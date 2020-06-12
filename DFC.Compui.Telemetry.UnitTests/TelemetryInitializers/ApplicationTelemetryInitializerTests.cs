@@ -13,40 +13,40 @@ namespace DFC.Compui.Telemetry.UnitTests.TelemetryInitializers
         [Fact]
         public void ApplicationTelemetryInitializer_WhenSetupCalled_ThrowsApplicationNameException()
         {
-            //Arrange
-            //Act
-            //Assert
+            // Arrange
+            // Act
+            // Assert
             Assert.Throws<ArgumentException>(() => new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), A.Fake<IConfiguration>()));
         }
 
         [Fact]
         public void ApplicationTelemetryInitializer_WhenSetupCalled_InitializesCorrectly()
         {
-            //Arrange
+            // Arrange
             var configuration = A.Fake<IConfiguration>();
             A.CallTo(() => configuration["Configuration:ApplicationName"]).Returns("TestAppA");
 
-            //Act
+            // Act
             var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration);
 
-            //Assert
+            // Assert
             A.CallTo(() => configuration["Configuration:ApplicationName"]).MustHaveHappened();
         }
 
         [Fact]
         public void ApplicationTelemetryInitializer_WhenInitializeCalled_SetsGlobalTelemetryValues()
         {
-            //Arrange
+            // Arrange
             var configuration = A.Fake<IConfiguration>();
             A.CallTo(() => configuration["Configuration:ApplicationName"]).Returns("TestAppA");
 
             var telemetry = A.Fake<ITelemetry>();
 
-            //Act
+            // Act
             var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration);
             initializer.Initialize(telemetry);
 
-            //Assert
+            // Assert
             A.CallTo(() => configuration["Configuration:ApplicationName"]).MustHaveHappened();
             Assert.True(telemetry.Context.GlobalProperties.ContainsKey("ApplicationName"));
             Assert.True(telemetry.Context.GlobalProperties.ContainsKey("ApplicationInstanceId"));

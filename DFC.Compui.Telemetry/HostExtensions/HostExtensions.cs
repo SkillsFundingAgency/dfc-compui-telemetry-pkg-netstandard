@@ -1,4 +1,8 @@
-﻿using DFC.Compui.Telemetry.TelemetryInitializers;
+﻿// <copyright file="HostExtensions.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using DFC.Compui.Telemetry.TelemetryInitializers;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

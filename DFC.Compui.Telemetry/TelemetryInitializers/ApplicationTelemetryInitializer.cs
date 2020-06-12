@@ -8,30 +8,30 @@ namespace DFC.Compui.Telemetry.TelemetryInitializers
 {
     public class ApplicationTelemetryInitializer : ITelemetryInitializer
     {
-        private readonly ILogger<ApplicationTelemetryInitializer> _logger;
-        private readonly IConfiguration _configuration;
+        private readonly ILogger<ApplicationTelemetryInitializer> logger;
+        private readonly IConfiguration configuration;
         private string? applicationInstanceId;
 
         public ApplicationTelemetryInitializer(ILogger<ApplicationTelemetryInitializer> logger, IConfiguration configuration)
         {
-            this._logger = logger;
-            this._configuration = configuration;
+            this.logger = logger;
+            this.configuration = configuration;
 
-            Setup();
+            this.Setup();
         }
 
         public void Setup()
         {
-            var applicationName = !string.IsNullOrEmpty(_configuration["Configuration:ApplicationName"]) ? _configuration["Configuration:ApplicationName"] : throw new ArgumentException($"Configuration:ApplicationName Key not found in configuration");
+            var applicationName = !string.IsNullOrEmpty(this.configuration["Configuration:ApplicationName"]) ? this.configuration["Configuration:ApplicationName"] : throw new ArgumentException($"Configuration:ApplicationName Key not found in configuration");
 
-            applicationInstanceId = Guid.NewGuid().ToString();
+            this.applicationInstanceId = Guid.NewGuid().ToString();
 
-            //Log to Console for App Service / K8S Tracing
+            // Log to Console for App Service / K8S Tracing
             Console.WriteLine($"Application Name: {applicationName}");
-            Console.WriteLine($"Application Instance Id: {applicationInstanceId}");
+            Console.WriteLine($"Application Instance Id: {this.applicationInstanceId}");
 
-            _logger.LogInformation($"Application Name: {applicationName}");
-            _logger.LogInformation($"Application Instance Id: {applicationInstanceId}");
+            this.logger.LogInformation($"Application Name: {applicationName}");
+            this.logger.LogInformation($"Application Instance Id: {this.applicationInstanceId}");
         }
 
         public void Initialize(ITelemetry telemetry)
@@ -41,23 +41,24 @@ namespace DFC.Compui.Telemetry.TelemetryInitializers
                 throw new ArgumentNullException(nameof(telemetry));
             }
 
-            var applicationName = _configuration["Configuration:ApplicationName"] ?? throw new ArgumentException($"Configuration:ApplicationName Key not found in configuration");
+            var applicationName = this.configuration["Configuration:ApplicationName"] ?? throw new ArgumentException($"Configuration:ApplicationName Key not found in configuration");
 
-            //RoleName is used to distinguish instances in the AI Application Map
-            //Pods in K8S will have a null value, so set to the instance ID
+            // RoleName is used to distinguish instances in the AI Application Map
+            // Pods in K8S will have a null value, so set to the instance ID
             if (string.IsNullOrWhiteSpace(telemetry.Context.Cloud.RoleName))
             {
-                telemetry.Context.Cloud.RoleName = $"{applicationName}_{applicationInstanceId}";
+                telemetry.Context.Cloud.RoleName = $"{applicationName}_{this.applicationInstanceId}";
             }
 
-            //Add to Custom Properties in AI to allow correlation
+            // Add to Custom Properties in AI to allow correlation
             if (!telemetry.Context.GlobalProperties.ContainsKey("ApplicationName"))
             {
                 telemetry.Context.GlobalProperties.Add("ApplicationName", applicationName);
             }
+
             if (!telemetry.Context.GlobalProperties.ContainsKey("ApplicationInstanceId"))
             {
-                telemetry.Context.GlobalProperties.Add("ApplicationInstanceId", applicationInstanceId!.ToString());
+                telemetry.Context.GlobalProperties.Add("ApplicationInstanceId", this.applicationInstanceId!.ToString());
             }
         }
     }

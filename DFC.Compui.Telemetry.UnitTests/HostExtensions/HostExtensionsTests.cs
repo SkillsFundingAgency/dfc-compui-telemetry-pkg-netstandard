@@ -1,13 +1,13 @@
-﻿using FakeItEasy;
-using DFC.Compui.Telemetry.HostExtensions;
-using Microsoft.ApplicationInsights.Extensibility;
-using Xunit;
-using System.Linq;
+﻿using DFC.Compui.Telemetry.HostExtensions;
 using DFC.Compui.Telemetry.TelemetryInitializers;
+using FakeItEasy;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
+using Xunit;
 
 namespace DFC.Compui.Telemetry.UnitTests.HostExtensions
 {
@@ -16,7 +16,7 @@ namespace DFC.Compui.Telemetry.UnitTests.HostExtensions
         [Fact]
         public void HostExtensions_WhenAddApplicationTelemetryInitializer_AddsToTelemetryCollection()
         {
-            //Arrange
+            // Arrange
             var configuration = A.Fake<IConfiguration>();
             A.CallTo(() => configuration["Configuration:ApplicationName"]).Returns("TestAppA");
 
@@ -25,10 +25,10 @@ namespace DFC.Compui.Telemetry.UnitTests.HostExtensions
             A.CallTo(() => webHost.Services.GetService(typeof(ILogger<ApplicationTelemetryInitializer>))).Returns(A.Fake<ILogger<ApplicationTelemetryInitializer>>());
             A.CallTo(() => webHost.Services.GetService(typeof(IConfiguration))).Returns(configuration);
 
-            //Act
+            // Act
             webHost.AddApplicationTelemetryInitializer();
 
-            //Assert
+            // Assert
             var telemetryConfig = (TelemetryConfiguration)webHost.Services.GetService(typeof(TelemetryConfiguration));
 
             Assert.Single(telemetryConfig.TelemetryInitializers);
@@ -38,7 +38,7 @@ namespace DFC.Compui.Telemetry.UnitTests.HostExtensions
         [Fact]
         public void HostExtensions_WhenAddApplicationTelemetryInitializer_ThrowsTelemetryNullException()
         {
-            //Arrange
+            // Arrange
             var configuration = A.Fake<IConfiguration>();
             A.CallTo(() => configuration["Configuration:ApplicationName"]).Returns("TestAppA");
 
@@ -47,15 +47,15 @@ namespace DFC.Compui.Telemetry.UnitTests.HostExtensions
             A.CallTo(() => webHost.Services.GetService(typeof(ILogger<ApplicationTelemetryInitializer>))).Returns(A.Fake<ILogger<ApplicationTelemetryInitializer>>());
             A.CallTo(() => webHost.Services.GetService(typeof(IConfiguration))).Returns(configuration);
 
-            //Act
-            //Assert
+            // Act
+            // Assert
             Assert.Throws<ArgumentException>(() => webHost.AddApplicationTelemetryInitializer());
         }
 
         [Fact]
         public void HostExtensions_WhenAddApplicationTelemetryInitializer_ThrowsLoggerNullException()
         {
-            //Arrange
+            // Arrange
             var configuration = A.Fake<IConfiguration>();
             A.CallTo(() => configuration["Configuration:ApplicationName"]).Returns("TestAppA");
 
@@ -64,23 +64,22 @@ namespace DFC.Compui.Telemetry.UnitTests.HostExtensions
             A.CallTo(() => webHost.Services.GetService(typeof(ILogger<ApplicationTelemetryInitializer>))).Returns(null);
             A.CallTo(() => webHost.Services.GetService(typeof(IConfiguration))).Returns(configuration);
 
-            //Act
-            //Assert
+            // Act
+            // Assert
             Assert.Throws<ArgumentException>(() => webHost.AddApplicationTelemetryInitializer());
         }
-
 
         [Fact]
         public void HostExtensions_WhenAddApplicationTelemetryInitializer_ThrowsConfigurationNullException()
         {
-            //Arrange
+            // Arrange
             var webHost = A.Fake<IWebHost>();
             A.CallTo(() => webHost.Services.GetService(typeof(TelemetryConfiguration))).Returns(new TelemetryConfiguration());
             A.CallTo(() => webHost.Services.GetService(typeof(ILogger<ApplicationTelemetryInitializer>))).Returns(A.Fake<ILogger<ApplicationTelemetryInitializer>>());
             A.CallTo(() => webHost.Services.GetService(typeof(IConfiguration))).Returns(null);
 
-            //Act
-            //Assert
+            // Act
+            // Assert
             Assert.Throws<ArgumentException>(() => webHost.AddApplicationTelemetryInitializer());
         }
     }

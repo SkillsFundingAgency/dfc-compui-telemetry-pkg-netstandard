@@ -12,20 +12,20 @@ namespace DFC.Compui.Telemetry.Models
         {
             if (string.IsNullOrWhiteSpace(traceId))
             {
-                throw new ArgumentException($"{nameof(TraceId)} cannot be null");
+                throw new ArgumentException($"{nameof(this.TraceId)} cannot be null");
             }
 
-            TraceId = traceId;
+            this.TraceId = traceId;
         }
 
         public void AddParentId(string parentId)
         {
             if (string.IsNullOrWhiteSpace(parentId))
             {
-                throw new ArgumentException($"{nameof(TraceId)} cannot be null");
+                throw new ArgumentException($"{nameof(this.TraceId)} cannot be null");
             }
 
-            ParentId = parentId;
+            this.ParentId = parentId;
         }
     }
 }

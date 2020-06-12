@@ -11,11 +11,11 @@ namespace DFC.Compui.Telemetry.HostedService
 {
     public class HostedServiceTelemetryWrapper : IHostedServiceTelemetryWrapper
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration configuration;
 
         public HostedServiceTelemetryWrapper(IConfiguration configuration)
         {
-            this._configuration = configuration;
+            this.configuration = configuration;
         }
 
         public async Task Execute(Func<Task> serviceToExecute, string hostedServiceName)
@@ -27,7 +27,7 @@ namespace DFC.Compui.Telemetry.HostedService
 
             TelemetryConfiguration configuration = TelemetryConfiguration.CreateDefault();
 
-            configuration.InstrumentationKey = _configuration["ApplicationInsights:InstrumentationKey"] ?? throw new ArgumentException($"ApplicationInsights:Instrumentation Key not found in configuration");
+            configuration.InstrumentationKey = this.configuration["ApplicationInsights:InstrumentationKey"] ?? throw new ArgumentException($"ApplicationInsights:Instrumentation Key not found in configuration");
             configuration.TelemetryInitializers.Add(new HttpDependenciesParsingTelemetryInitializer());
 
             var telemetryClient = new TelemetryClient(configuration);

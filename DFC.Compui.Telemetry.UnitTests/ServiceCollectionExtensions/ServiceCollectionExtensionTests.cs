@@ -1,12 +1,9 @@
 ﻿using DFC.Compui.Telemetry.HostedService;
 using FakeItEasy;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Xunit;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
+using Xunit;
 
 namespace DFC.Compui.Telemetry.UnitTests.ServiceCollectionExtensions
 {
@@ -15,13 +12,13 @@ namespace DFC.Compui.Telemetry.UnitTests.ServiceCollectionExtensions
         [Fact]
         public void ServiceCollectionExtensions_WhenAddHostedServiceTelemetryWrapperCalled_ServiceAdded()
         {
-            //Arrange
+            // Arrange
             var serviceCollection = new ServiceCollection();
 
-            //Act
+            // Act
             serviceCollection.AddHostedServiceTelemetryWrapper();
 
-            //Assert
+            // Assert
             Assert.Single(serviceCollection);
             Assert.Equal(typeof(IHostedServiceTelemetryWrapper), serviceCollection.FirstOrDefault().ServiceType);
         }
@@ -29,10 +26,10 @@ namespace DFC.Compui.Telemetry.UnitTests.ServiceCollectionExtensions
         [Fact]
         public void ServiceCollectionExtensions_WhenAddHostedServiceTelemetryWrapperCalled_ServiceResolved()
         {
-            //Arrange
+            // Arrange
             var serviceCollection = new ServiceCollection();
 
-            //Act
+            // Act
             var fakeConfiguration = A.Fake<IConfiguration>();
             serviceCollection.AddSingleton(fakeConfiguration);
             serviceCollection.AddHostedServiceTelemetryWrapper();
@@ -40,7 +37,7 @@ namespace DFC.Compui.Telemetry.UnitTests.ServiceCollectionExtensions
 
             var telemetryWrapper = provider.GetService<IHostedServiceTelemetryWrapper>();
 
-            //Assert
+            // Assert
             Assert.NotNull(telemetryWrapper);
         }
     }

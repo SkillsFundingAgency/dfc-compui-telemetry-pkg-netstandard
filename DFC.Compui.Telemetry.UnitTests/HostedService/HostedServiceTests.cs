@@ -12,18 +12,18 @@ namespace DFC.Compui.Telemetry.UnitTests.HostedService
         [Fact]
         public async Task HostedServiceTelemetryWrapper_WhenExecuteCalled_ExecutesEncapsulatedMethod()
         {
-            //Arrange
+            // Arrange
             var configuration = A.Fake<IConfiguration>();
             A.CallTo(() => configuration["Configuration:ApplicationName"]).Returns("TestAppA");
             A.CallTo(() => configuration["ApplicationInsights:InstrumentationKey"]).Returns(Guid.NewGuid().ToString());
 
             var hostedService = new HostedServiceTelemetryWrapper(configuration);
 
-            //Act
+            // Act
             var fakeSomeWork = A.Fake<Func<Task>>();
             await hostedService.Execute(() => fakeSomeWork(), "MyTestHostedService");
 
-            //Assert
+            // Assert
             A.CallTo(() => fakeSomeWork()).MustHaveHappenedOnceExactly();
         }
     }

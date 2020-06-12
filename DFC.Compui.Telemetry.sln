@@ -5,7 +5,19 @@ VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.Compui.Telemetry.UnitTests", "DFC.Compui.Telemetry.UnitTests\DFC.Compui.Telemetry.UnitTests.csproj", "{C3E6B342-5CC0-4417-BFF9-CB88A007E39C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Compui.Telemetry", "DFC.Compui.Telemetry\DFC.Compui.Telemetry.csproj", "{175EB05F-0284-43CB-BA1D-F05151EF85D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.Compui.Telemetry", "DFC.Compui.Telemetry\DFC.Compui.Telemetry.csproj", "{175EB05F-0284-43CB-BA1D-F05151EF85D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{07BC1FDC-EF22-4AC7-A37F-1BDF9BC9ECDD}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		CODEOWNERS = CODEOWNERS
+		DFC.Digital.CodeAnalysis.ruleset = DFC.Digital.CodeAnalysis.ruleset
+		LICENSE = LICENSE
+		README.md = README.md
+		stylecop.json = stylecop.json
+		UnitTests.CodeAnalysis.ruleset = UnitTests.CodeAnalysis.ruleset
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
