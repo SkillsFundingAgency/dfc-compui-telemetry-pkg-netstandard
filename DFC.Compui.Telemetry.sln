@@ -1,11 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Compui.Telemetry", "DFC.Compui.Telemetry\DFC.Compui.Telemetry.csproj", "{B7A9179F-C6FA-45D4-AA93-30841B008D40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.Compui.Telemetry.UnitTests", "DFC.Compui.Telemetry.UnitTests\DFC.Compui.Telemetry.UnitTests.csproj", "{C3E6B342-5CC0-4417-BFF9-CB88A007E39C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Compui.Telemetry.UnitTests", "DFC.Compui.Telemetry.UnitTests\DFC.Compui.Telemetry.UnitTests.csproj", "{C3E6B342-5CC0-4417-BFF9-CB88A007E39C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.Compui.Telemetry", "DFC.Compui.Telemetry\DFC.Compui.Telemetry.csproj", "{175EB05F-0284-43CB-BA1D-F05151EF85D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{07BC1FDC-EF22-4AC7-A37F-1BDF9BC9ECDD}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		CODEOWNERS = CODEOWNERS
+		DFC.Digital.CodeAnalysis.ruleset = DFC.Digital.CodeAnalysis.ruleset
+		LICENSE = LICENSE
+		README.md = README.md
+		stylecop.json = stylecop.json
+		UnitTests.CodeAnalysis.ruleset = UnitTests.CodeAnalysis.ruleset
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,22 +28,7 @@ Global
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B7A9179F-C6FA-45D4-AA93-30841B008D40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7A9179F-C6FA-45D4-AA93-30841B008D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7A9179F-C6FA-45D4-AA93-30841B008D40}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B7A9179F-C6FA-45D4-AA93-30841B008D40}.Debug|x64.Build.0 = Debug|Any CPU
-		{B7A9179F-C6FA-45D4-AA93-30841B008D40}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B7A9179F-C6FA-45D4-AA93-30841B008D40}.Debug|x86.Build.0 = Debug|Any CPU
-		{B7A9179F-C6FA-45D4-AA93-30841B008D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7A9179F-C6FA-45D4-AA93-30841B008D40}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7A9179F-C6FA-45D4-AA93-30841B008D40}.Release|x64.ActiveCfg = Release|Any CPU
-		{B7A9179F-C6FA-45D4-AA93-30841B008D40}.Release|x64.Build.0 = Release|Any CPU
-		{B7A9179F-C6FA-45D4-AA93-30841B008D40}.Release|x86.ActiveCfg = Release|Any CPU
-		{B7A9179F-C6FA-45D4-AA93-30841B008D40}.Release|x86.Build.0 = Release|Any CPU
 		{C3E6B342-5CC0-4417-BFF9-CB88A007E39C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C3E6B342-5CC0-4417-BFF9-CB88A007E39C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3E6B342-5CC0-4417-BFF9-CB88A007E39C}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -44,5 +41,23 @@ Global
 		{C3E6B342-5CC0-4417-BFF9-CB88A007E39C}.Release|x64.Build.0 = Release|Any CPU
 		{C3E6B342-5CC0-4417-BFF9-CB88A007E39C}.Release|x86.ActiveCfg = Release|Any CPU
 		{C3E6B342-5CC0-4417-BFF9-CB88A007E39C}.Release|x86.Build.0 = Release|Any CPU
+		{175EB05F-0284-43CB-BA1D-F05151EF85D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{175EB05F-0284-43CB-BA1D-F05151EF85D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{175EB05F-0284-43CB-BA1D-F05151EF85D7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{175EB05F-0284-43CB-BA1D-F05151EF85D7}.Debug|x64.Build.0 = Debug|Any CPU
+		{175EB05F-0284-43CB-BA1D-F05151EF85D7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{175EB05F-0284-43CB-BA1D-F05151EF85D7}.Debug|x86.Build.0 = Debug|Any CPU
+		{175EB05F-0284-43CB-BA1D-F05151EF85D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{175EB05F-0284-43CB-BA1D-F05151EF85D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{175EB05F-0284-43CB-BA1D-F05151EF85D7}.Release|x64.ActiveCfg = Release|Any CPU
+		{175EB05F-0284-43CB-BA1D-F05151EF85D7}.Release|x64.Build.0 = Release|Any CPU
+		{175EB05F-0284-43CB-BA1D-F05151EF85D7}.Release|x86.ActiveCfg = Release|Any CPU
+		{175EB05F-0284-43CB-BA1D-F05151EF85D7}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D9C94D6-04F7-437C-AADC-BC8E83EE52B3}
 	EndGlobalSection
 EndGlobal
