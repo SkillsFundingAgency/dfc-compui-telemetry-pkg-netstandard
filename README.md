@@ -1,28 +1,22 @@
-# Project template repository
+# Digital First Careers - Telemetry & Correlation
 
-This directory contains a "template repo" for creating new repositories from.
+This project provides various extensions and utilities to add Correlation and Telemetry to Shell apps
 
-It defaults to .dotnet core 2.2, but if you update global.json, it will support netcore 3.0 and 3.1.
+## Getting Started
 
-When using this,  please run
+This is a self-contained Visual Studio 2019 solution containing a number of projects (.NET Standard Class Library with associated unit test project).
 
-`Scripts\New-InitialDotNetCoreProjects.ps1 -Prefix <project name> -ProjectType <project type>`
+### Installing
 
-to create the project structure and correctly populate the project guids in the csproj files.
+Clone the project and open the solution in Visual Studio 2019.
 
-Supported project types are currently:
+## Deployments
 
-* mvc
-* console
-* classlib
-* function
+This package deploys a NuGet package onto a NuGet feed. It is then consumed by the Shell and Comp UI child apps.
 
-Then delete this section, and remove the Scripts folder from the repo.
 
-Then it can be PR'd into the appropriate branch
+## Built With
 
-# SomeProjectName
+* Microsoft Visual Studio 2019
+* .Net Standard 2.1
 
-## Introduction
-
-An introduction to the project goes here!
