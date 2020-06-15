@@ -1,9 +1,6 @@
 ﻿using DFC.Compui.Telemetry.Models;
 using DFC.Compui.Telemetry.TraceExtensions;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using Xunit;
 
 namespace DFC.Compui.Telemetry.UnitTests.TraceExtensions
@@ -11,7 +8,7 @@ namespace DFC.Compui.Telemetry.UnitTests.TraceExtensions
     public class TraceExtensionsTests
     {
         [Fact]
-        public void DoSomething()
+        public void RequestTrace_OnAddTraceInformation_AddsTraceInformation()
         {
             // Arrange
             var model = new RequestTrace();
