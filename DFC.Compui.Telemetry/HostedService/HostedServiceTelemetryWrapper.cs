@@ -47,9 +47,8 @@ namespace DFC.Compui.Telemetry.HostedService
                     await Task.Run(() => serviceToExecute.Invoke()).ConfigureAwait(false);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                logger.LogError(ex);
                 throw;
             }
             finally
