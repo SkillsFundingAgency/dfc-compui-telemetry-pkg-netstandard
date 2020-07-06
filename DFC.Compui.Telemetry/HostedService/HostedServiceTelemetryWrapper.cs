@@ -3,7 +3,6 @@ using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.DependencyCollector;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -13,12 +12,10 @@ namespace DFC.Compui.Telemetry.HostedService
     public class HostedServiceTelemetryWrapper : IHostedServiceTelemetryWrapper
     {
         private readonly IConfiguration configuration;
-        private readonly ILogger<HostedServiceTelemetryWrapper> logger;
 
-        public HostedServiceTelemetryWrapper(IConfiguration configuration, ILogger<HostedServiceTelemetryWrapper> logger)
+        public HostedServiceTelemetryWrapper(IConfiguration configuration)
         {
             this.configuration = configuration;
-            this.logger = logger;
         }
 
         public async Task Execute(Func<Task> serviceToExecute, string hostedServiceName)
