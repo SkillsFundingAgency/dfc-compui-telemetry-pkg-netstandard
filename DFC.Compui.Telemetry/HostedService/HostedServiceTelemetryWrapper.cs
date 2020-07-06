@@ -3,6 +3,7 @@ using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.DependencyCollector;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -12,10 +13,12 @@ namespace DFC.Compui.Telemetry.HostedService
     public class HostedServiceTelemetryWrapper : IHostedServiceTelemetryWrapper
     {
         private readonly IConfiguration configuration;
+        private readonly ILogger<HostedServiceTelemetryWrapper> logger;
 
-        public HostedServiceTelemetryWrapper(IConfiguration configuration)
+        public HostedServiceTelemetryWrapper(IConfiguration configuration, ILogger<HostedServiceTelemetryWrapper> logger)
         {
             this.configuration = configuration;
+            this.logger = logger;
         }
 
         public async Task Execute(Func<Task> serviceToExecute, string hostedServiceName)
@@ -27,7 +30,7 @@ namespace DFC.Compui.Telemetry.HostedService
 
             TelemetryConfiguration configuration = TelemetryConfiguration.CreateDefault();
 
-            configuration.InstrumentationKey = this.configuration["ApplicationInsights:InstrumentationKey"] ?? throw new ArgumentException($"ApplicationInsights:Instrumentation Key not found in configuration");
+            configuration.InstrumentationKey = this.configuration["APPINSIGHTS_INSTRUMENTATIONKEY"] ?? throw new ArgumentException($"APPINSIGHTS_INSTRUMENTATIONKEY");
             configuration.TelemetryInitializers.Add(new HttpDependenciesParsingTelemetryInitializer());
 
             var telemetryClient = new TelemetryClient(configuration);
@@ -47,8 +50,9 @@ namespace DFC.Compui.Telemetry.HostedService
                     await Task.Run(() => serviceToExecute.Invoke()).ConfigureAwait(false);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                logger.LogError(ex);
                 throw;
             }
             finally
