@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <ProjectGuid>{13142b10-e7d8-4dff-9239-c8c6eb5d156e}</ProjectGuid>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
     <AssemblyName>DFC.Compui.Telemetry</AssemblyName>
