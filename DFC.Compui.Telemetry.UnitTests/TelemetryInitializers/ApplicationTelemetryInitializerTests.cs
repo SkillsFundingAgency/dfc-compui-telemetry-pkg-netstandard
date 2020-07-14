@@ -58,7 +58,7 @@ namespace DFC.Compui.Telemetry.UnitTests.TelemetryInitializers
 
             var telemetry = A.Fake<ITelemetry>();
 
-            var activity = new Activity("TestActivity").Start();
+            var activity = new Activity("TestActivity1").Start();
 
             var httpContextAccessor = A.Fake<IHttpContextAccessor>();
             A.CallTo(() => httpContextAccessor.HttpContext).Returns(new DefaultHttpContext());
