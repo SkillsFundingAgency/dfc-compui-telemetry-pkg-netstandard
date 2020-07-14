@@ -27,7 +27,7 @@ namespace DFC.Compui.Telemetry.HostedService
 
             TelemetryConfiguration configuration = TelemetryConfiguration.CreateDefault();
 
-            configuration.InstrumentationKey = this.configuration["ApplicationInsights:InstrumentationKey"] ?? throw new ArgumentException($"ApplicationInsights:Instrumentation Key not found in configuration");
+            configuration.InstrumentationKey = this.configuration["APPINSIGHTS_INSTRUMENTATIONKEY"] ?? throw new ArgumentException($"APPINSIGHTS_INSTRUMENTATIONKEY");
             configuration.TelemetryInitializers.Add(new HttpDependenciesParsingTelemetryInitializer());
 
             var telemetryClient = new TelemetryClient(configuration);
