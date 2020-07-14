@@ -1,6 +1,7 @@
 ﻿using DFC.Compui.Telemetry.TelemetryInitializers;
 using FakeItEasy;
 using Microsoft.ApplicationInsights.Channel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -16,7 +17,7 @@ namespace DFC.Compui.Telemetry.UnitTests.TelemetryInitializers
             // Arrange
             // Act
             // Assert
-            Assert.Throws<ArgumentException>(() => new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), A.Fake<IConfiguration>()));
+            Assert.Throws<ArgumentException>(() => new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), A.Fake<IConfiguration>(), A.Fake<IHttpContextAccessor>()));
         }
 
         [Fact]
@@ -27,7 +28,7 @@ namespace DFC.Compui.Telemetry.UnitTests.TelemetryInitializers
             A.CallTo(() => configuration["Configuration:ApplicationName"]).Returns("TestAppA");
 
             // Act
-            var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration);
+            var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration, A.Fake<IHttpContextAccessor>());
 
             // Assert
             A.CallTo(() => configuration["Configuration:ApplicationName"]).MustHaveHappened();
@@ -43,7 +44,7 @@ namespace DFC.Compui.Telemetry.UnitTests.TelemetryInitializers
             var telemetry = A.Fake<ITelemetry>();
 
             // Act
-            var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration);
+            var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration, A.Fake<IHttpContextAccessor>());
             initializer.Initialize(telemetry);
 
             // Assert
