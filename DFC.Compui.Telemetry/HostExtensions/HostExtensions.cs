@@ -5,6 +5,7 @@
 using DFC.Compui.Telemetry.TelemetryInitializers;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -21,10 +22,7 @@ namespace DFC.Compui.Telemetry.HostExtensions
                 throw new ArgumentNullException(nameof(host));
             }
 
-            var telemetryConfig = (TelemetryConfiguration)host.Services.GetService(typeof(TelemetryConfiguration)) ?? throw new ArgumentException($"{nameof(TelemetryConfiguration)} not present in host services");
-            var logger = (ILogger<ApplicationTelemetryInitializer>)host.Services.GetService(typeof(ILogger<ApplicationTelemetryInitializer>)) ?? throw new ArgumentException($"{nameof(ILogger<ApplicationTelemetryInitializer>)} not present in host services");
-            var configuration = (IConfiguration)host.Services.GetService(typeof(IConfiguration)) ?? throw new ArgumentException($"{nameof(IConfiguration)} not present in host services");
-            telemetryConfig.TelemetryInitializers.Add(new ApplicationTelemetryInitializer(logger, configuration));
+            AddServices(host.Services);
 
             return host;
         }
@@ -36,12 +34,19 @@ namespace DFC.Compui.Telemetry.HostExtensions
                 throw new ArgumentNullException(nameof(host));
             }
 
-            var telemetryConfig = (TelemetryConfiguration)host.Services.GetService(typeof(TelemetryConfiguration)) ?? throw new ArgumentException($"{nameof(TelemetryConfiguration)} not present in host services");
-            var logger = (ILogger<ApplicationTelemetryInitializer>)host.Services.GetService(typeof(ILogger<ApplicationTelemetryInitializer>)) ?? throw new ArgumentException($"{nameof(ILogger<ApplicationTelemetryInitializer>)} not present in host services");
-            var configuration = (IConfiguration)host.Services.GetService(typeof(IConfiguration)) ?? throw new ArgumentException($"{nameof(IConfiguration)} not present in host services");
-            telemetryConfig.TelemetryInitializers.Add(new ApplicationTelemetryInitializer(logger, configuration));
+            AddServices(host.Services);
 
             return host;
+        }
+
+        private static void AddServices(IServiceProvider services)
+        {
+            var telemetryConfig = (TelemetryConfiguration)services.GetService(typeof(TelemetryConfiguration)) ?? throw new ArgumentException($"{nameof(TelemetryConfiguration)} not present in host services");
+            var logger = (ILogger<ApplicationTelemetryInitializer>)services.GetService(typeof(ILogger<ApplicationTelemetryInitializer>)) ?? throw new ArgumentException($"{nameof(ILogger<ApplicationTelemetryInitializer>)} not present in host services");
+            var configuration = (IConfiguration)services.GetService(typeof(IConfiguration)) ?? throw new ArgumentException($"{nameof(IConfiguration)} not present in host services");
+            var httpContextAccessor = (IHttpContextAccessor)services.GetService(typeof(IHttpContextAccessor)) ?? throw new ArgumentException($"{nameof(IHttpContextAccessor)} nor present in host services");
+
+            telemetryConfig.TelemetryInitializers.Add(new ApplicationTelemetryInitializer(logger, configuration, httpContextAccessor));
         }
     }
 }

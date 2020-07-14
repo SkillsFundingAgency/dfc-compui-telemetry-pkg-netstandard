@@ -1,8 +1,11 @@
 ﻿using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace DFC.Compui.Telemetry.TelemetryInitializers
 {
@@ -10,13 +13,14 @@ namespace DFC.Compui.Telemetry.TelemetryInitializers
     {
         private readonly ILogger<ApplicationTelemetryInitializer> logger;
         private readonly IConfiguration configuration;
+        private readonly IHttpContextAccessor httpContextAccessor;
         private string? applicationInstanceId;
 
-        public ApplicationTelemetryInitializer(ILogger<ApplicationTelemetryInitializer> logger, IConfiguration configuration)
+        public ApplicationTelemetryInitializer(ILogger<ApplicationTelemetryInitializer> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             this.logger = logger;
             this.configuration = configuration;
-
+            this.httpContextAccessor = httpContextAccessor;
             this.Setup();
         }
 
@@ -59,6 +63,11 @@ namespace DFC.Compui.Telemetry.TelemetryInitializers
             if (!telemetry.Context.GlobalProperties.ContainsKey("ApplicationInstanceId"))
             {
                 telemetry.Context.GlobalProperties.Add("ApplicationInstanceId", this.applicationInstanceId!.ToString());
+            }
+
+            if (Activity.Current != null && httpContextAccessor.HttpContext.Response.Headers["OperationId"].Count == 0)
+            {
+                httpContextAccessor.HttpContext.Response.Headers.Add("OperationId", Activity.Current.TraceId.ToString());
             }
         }
     }
