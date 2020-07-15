@@ -18,7 +18,7 @@ namespace DFC.Compui.Telemetry.UnitTests.TelemetryInitializers
             // Arrange
             // Act
             // Assert
-            Assert.Throws<ArgumentException>(() => new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), A.Fake<IConfiguration>(), A.Fake<IHttpContextAccessor>()));
+            Assert.Throws<ArgumentException>(() => new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), A.Fake<IConfiguration>()));
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace DFC.Compui.Telemetry.UnitTests.TelemetryInitializers
             A.CallTo(() => configuration["Configuration:ApplicationName"]).Returns("TestAppA");
 
             // Act
-            var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration, A.Fake<IHttpContextAccessor>());
+            var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration);
 
             // Assert
             A.CallTo(() => configuration["Configuration:ApplicationName"]).MustHaveHappened();
@@ -43,7 +43,7 @@ namespace DFC.Compui.Telemetry.UnitTests.TelemetryInitializers
             A.CallTo(() => configuration["Configuration:ApplicationName"]).Returns("TestAppA");
 
             // Act
-            var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration, A.Fake<IHttpContextAccessor>());
+            var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration);
 
             // Assert
             A.CallTo(() => configuration["Configuration:ApplicationName"]).MustHaveHappened();
@@ -60,11 +60,8 @@ namespace DFC.Compui.Telemetry.UnitTests.TelemetryInitializers
 
             var activity = new Activity("TestActivity1").Start();
 
-            var httpContextAccessor = A.Fake<IHttpContextAccessor>();
-            A.CallTo(() => httpContextAccessor.HttpContext).Returns(new DefaultHttpContext());
-
             // Act
-            var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration, httpContextAccessor);
+            var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration);
             initializer.Initialize(telemetry);
 
             // Assert
@@ -72,7 +69,6 @@ namespace DFC.Compui.Telemetry.UnitTests.TelemetryInitializers
             Assert.True(telemetry.Context.GlobalProperties.ContainsKey("ApplicationName"));
             Assert.True(telemetry.Context.GlobalProperties.ContainsKey("ApplicationInstanceId"));
             Assert.NotNull(telemetry.Context.Cloud.RoleName);
-            Assert.Equal(1, httpContextAccessor.HttpContext.Response.Headers.Count);
         }
     }
 }
