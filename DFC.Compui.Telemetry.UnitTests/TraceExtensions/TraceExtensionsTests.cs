@@ -15,7 +15,7 @@ namespace DFC.Compui.Telemetry.UnitTests.TraceExtensions
             var model = new RequestTrace();
 
             // Act
-            var activity = new Activity("TestOperation1").Start();
+            var activity = new Activity("TestOperation").Start();
             model.AddTraceInformation();
 
             // Assert

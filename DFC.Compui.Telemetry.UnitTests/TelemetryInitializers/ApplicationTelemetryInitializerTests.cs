@@ -1,11 +1,9 @@
 ﻿using DFC.Compui.Telemetry.TelemetryInitializers;
 using FakeItEasy;
 using Microsoft.ApplicationInsights.Channel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Diagnostics;
 using Xunit;
 
 namespace DFC.Compui.Telemetry.UnitTests.TelemetryInitializers
@@ -36,20 +34,6 @@ namespace DFC.Compui.Telemetry.UnitTests.TelemetryInitializers
         }
 
         [Fact]
-        public void ApplicationTelemetryInitializer_WhenSetupCalled_InitializesOperationIdHeader()
-        {
-            // Arrange
-            var configuration = A.Fake<IConfiguration>();
-            A.CallTo(() => configuration["Configuration:ApplicationName"]).Returns("TestAppA");
-
-            // Act
-            var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration);
-
-            // Assert
-            A.CallTo(() => configuration["Configuration:ApplicationName"]).MustHaveHappened();
-        }
-
-        [Fact]
         public void ApplicationTelemetryInitializer_WhenInitializeCalled_SetsGlobalTelemetryValues()
         {
             // Arrange
@@ -57,8 +41,6 @@ namespace DFC.Compui.Telemetry.UnitTests.TelemetryInitializers
             A.CallTo(() => configuration["Configuration:ApplicationName"]).Returns("TestAppA");
 
             var telemetry = A.Fake<ITelemetry>();
-
-            var activity = new Activity("TestActivity1").Start();
 
             // Act
             var initializer = new ApplicationTelemetryInitializer(A.Fake<ILogger<ApplicationTelemetryInitializer>>(), configuration);

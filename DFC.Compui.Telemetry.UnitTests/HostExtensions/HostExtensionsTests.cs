@@ -3,7 +3,6 @@ using DFC.Compui.Telemetry.TelemetryInitializers;
 using FakeItEasy;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -25,7 +24,6 @@ namespace DFC.Compui.Telemetry.UnitTests.HostExtensions
             A.CallTo(() => webHost.Services.GetService(typeof(TelemetryConfiguration))).Returns(new TelemetryConfiguration());
             A.CallTo(() => webHost.Services.GetService(typeof(ILogger<ApplicationTelemetryInitializer>))).Returns(A.Fake<ILogger<ApplicationTelemetryInitializer>>());
             A.CallTo(() => webHost.Services.GetService(typeof(IConfiguration))).Returns(configuration);
-            A.CallTo(() => webHost.Services.GetService(typeof(IHttpContextAccessor))).Returns(A.Fake<IHttpContextAccessor>());
 
             // Act
             webHost.AddApplicationTelemetryInitializer();
