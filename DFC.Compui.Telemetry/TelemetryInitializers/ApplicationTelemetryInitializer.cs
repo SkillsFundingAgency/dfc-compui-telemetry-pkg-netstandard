@@ -16,7 +16,6 @@ namespace DFC.Compui.Telemetry.TelemetryInitializers
         {
             this.logger = logger;
             this.configuration = configuration;
-
             this.Setup();
         }
 
