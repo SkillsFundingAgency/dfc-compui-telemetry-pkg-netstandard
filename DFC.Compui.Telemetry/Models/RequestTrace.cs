@@ -1,8 +1,9 @@
-﻿using System;
+﻿using DFC.Compui.Telemetry.Interface;
+using System;
 
 namespace DFC.Compui.Telemetry.Models
 {
-    public class RequestTrace
+    public class RequestTrace : IRequestTrace
     {
         public string? TraceId { get; private set; }
 
