@@ -1,4 +1,5 @@
-﻿using DFC.Compui.Telemetry.Models;
+﻿using DFC.Compui.Telemetry.Interface;
+using DFC.Compui.Telemetry.Models;
 using System;
 using System.Diagnostics;
 
@@ -6,7 +7,7 @@ namespace DFC.Compui.Telemetry.TraceExtensions
 {
     public static class TraceExtensions
     {
-        public static void AddTraceInformation(this RequestTrace trace)
+        public static void AddTraceInformation(this IRequestTrace trace)
         {
             if (trace == null)
             {
