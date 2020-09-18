@@ -5,5 +5,9 @@
         public string? TraceId { get; }
 
         public string? ParentId { get; }
+
+        void AddParentId(string parentId);
+
+        void AddTraceId(string traceId);
     }
 }
